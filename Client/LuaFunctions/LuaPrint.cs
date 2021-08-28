@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Luaxe.LuaFunctions
+namespace Client.LuaFunctions
 {
     public class LuaPrint
     {

@@ -1,4 +1,4 @@
-﻿using Luaxe.LuaFunctions;
+﻿using Client.LuaFunctions;
 using NLua;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Luaxe
+namespace Client
 {
     public class LuaStateBuilder
     {

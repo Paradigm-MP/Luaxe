@@ -1,13 +1,17 @@
 ﻿using BepInEx;
 using HarmonyLib;
 
-namespace Luaxe
+namespace Client
 {
-	[BepInPlugin("Paradigm.Luaxe", "Luaxe", "1.0.0")]
+	[BepInPlugin(modGUID, modName, modVersion)]
 	[BepInProcess("valheim.exe")]
 	public class LuaTest : BaseUnityPlugin
 	{
-		private readonly Harmony harmony = new Harmony("Paradigm.Luaxe");
+		private const string modGUID = "Paradigm.Luaxe.Client";
+		private const string modName = "Luaxe Client";
+		private const string modVersion = "0.0.1";
+
+		private readonly Harmony harmony = new Harmony(modGUID);
 		void Awake()
 		{
 			harmony.PatchAll();

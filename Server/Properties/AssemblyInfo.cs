@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Luaxe")]
+[assembly: AssemblyTitle("Server")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Luaxe")]
-[assembly: AssemblyCopyright("Copyright © 2021")]
+[assembly: AssemblyProduct("Server")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8661c546-860d-4cc9-8eb7-0d6d799293a1")]
+[assembly: Guid("bf7c9c40-1a5c-4cc5-a2e2-5c5cd7cab834")]
 
 // Version information for an assembly consists of the following four values:
 //
