@@ -79,6 +79,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LuaFunctions\LuaPrint.cs" />
+    <Compile Include="LuaStateBuilder.cs" />
+    <Compile Include="LuaTest.cs" />
     <Compile Include="Luaxe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

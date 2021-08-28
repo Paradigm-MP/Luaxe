@@ -1,30 +1,29 @@
 ﻿using BepInEx;
-using BepInEx.Configuration;
 using HarmonyLib;
-using UnityEngine;
 
 namespace Luaxe
 {
-	/*
-    [BepInPlugin("Paradigm.Luaxe", "Luaxe", "1.0.0")]
-    [BepInProcess("valheim.exe")]
-    public class Luaxe : BaseUnityPlugin
-    {
+	[BepInPlugin("Paradigm.Luaxe", "Luaxe", "1.0.0")]
+	[BepInProcess("valheim.exe")]
+	public class LuaTest : BaseUnityPlugin
+	{
 		private readonly Harmony harmony = new Harmony("Paradigm.Luaxe");
-        void Awake()
-        {
+		void Awake()
+		{
 			harmony.PatchAll();
 		}
 
 		[HarmonyPatch(typeof(Player), nameof(Player.OnJump))]
-		class FixOnSwiming
+		class RunLuaOnJump
 		{
 			public static void Prefix(Player __instance)
 			{
+				var luaState = LuaStateBuilder.BuildState();
+				luaState.DoString(@"print('Lua print() meet Bepinex console!')");
+
 				Player player = __instance;
 				player.m_jumpForce = 100f;
 			}
 		}
-    }
-	*/
+	}
 }
