@@ -1,9 +1,14 @@
 # Luaxe
 
+Create wonderous gamemodes for Valheim with Lua. 
+
+## Disclaimer
+This is a **highly WIP** project. Not intended for use..._yet_.
+
 ## Setting Up for Development
 
 1. Download [BepInEx for Valheim](https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/). Follow the instructions to install BepInEx to Valheim.
-2. Create a `libs` folder in the root of Luaxe (right where this readme is).
+2. Create a `libs` folder in the Luaxe folder (the one containing `packages.config`).
 3. Copy the following files from BepInEx to the `libs` folder:
 ```
 0Harmony.dll
