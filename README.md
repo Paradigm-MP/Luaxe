@@ -12,7 +12,10 @@ BepInEx.dll
 4. Navigate to your Valheim game directory. Copy the following files from the `valheim_Data\Managed` folder to the `libs` folder:
 ```
 assembly_valheim.dll
+```
+5. Navigate to your Valheim game directory. Copy the following files from the `unstripped_corlib` folder to the `libs` folder:
+```
 UnityEngine.CoreModule.dll
 UnityEngine.dll
 ```
-5. Open up Luaxe.sln and you're all set!
+6. Open up Luaxe.sln and you're all set!
