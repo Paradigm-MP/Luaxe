@@ -12,7 +12,7 @@
 *.user
 *.sln.docstates
 
-/libs/
+**/libs/
 
 # Build results
 [Dd]ebug/
