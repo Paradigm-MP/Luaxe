@@ -12,6 +12,8 @@
 *.user
 *.sln.docstates
 
+/libs/
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
