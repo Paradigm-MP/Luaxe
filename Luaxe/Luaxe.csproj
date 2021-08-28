@@ -96,4 +96,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\KeraLua.1.2.14\build\net46\KeraLua.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\KeraLua.1.2.14\build\net46\KeraLua.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)lua54.dll" "$(VALHEIM_BEPINEX_PLUGINS)lua54.dll"
+copy /Y "$(TargetDir)KeraLua.dll" "$(VALHEIM_BEPINEX_PLUGINS)KeraLua.dll"
+copy /Y "$(TargetDir)NLua.dll" "$(VALHEIM_BEPINEX_PLUGINS)NLua.dll"
+copy /Y "$(TargetDir)Luaxe.dll" "$(VALHEIM_BEPINEX_PLUGINS)Luaxe.dll"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
