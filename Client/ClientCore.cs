@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Luaxe.Client
 {
-	[BepInPlugin(Constants.ModInfoConstants.modGUID, Constants.ModInfoConstants.modName, Constants.ModInfoConstants.modVersion)]
+	[BepInPlugin(Constants.ModInfo.modGUID, Constants.ModInfo.modName, Constants.ModInfo.modVersion)]
 	[BepInProcess("valheim.exe")]
 	public class Core : BaseUnityPlugin
 	{
-		private readonly Harmony harmony = new Harmony(Constants.ModInfoConstants.modGUID);
+		private readonly Harmony harmony = new Harmony(Constants.ModInfo.modGUID);
 		void Awake()
 		{
 			// Or Shared.Events.EventSystem.AddListener<Luaxe.Client.Events.PlayerDeathGameEvent>(PlayerDeathEvent);

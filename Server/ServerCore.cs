@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Luaxe.Server
 {
-	[BepInPlugin(Constants.ModInfoConstants.modGUID, Constants.ModInfoConstants.modName, Constants.ModInfoConstants.modVersion)]
+	[BepInPlugin(Constants.ModInfo.modGUID, Constants.ModInfo.modName, Constants.ModInfo.modVersion)]
 	public class Core : BaseUnityPlugin
 	{
-		private readonly Harmony harmony = new Harmony(Constants.ModInfoConstants.modGUID);
+		private readonly Harmony harmony = new Harmony(Constants.ModInfo.modGUID);
 		void Awake()
 		{
 			harmony.PatchAll();

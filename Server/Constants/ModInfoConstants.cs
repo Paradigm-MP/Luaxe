@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Luaxe.Server.Constants
 {
-    class ModInfoConstants
+    class ModInfo
     {
         public const string modGUID = "Paradigm.Luaxe.Server";
         public const string modName = "Luaxe Server";
