@@ -2,7 +2,7 @@
 
 Create wonderous gamemodes for Valheim with Lua. 
 
-## Disclaimer
+## 🛑 Disclaimer 🛑
 This is a **highly WIP** project. Not intended for use..._yet_.
 
 ## Setting Up for Development
