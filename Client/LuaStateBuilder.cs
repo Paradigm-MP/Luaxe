@@ -15,7 +15,15 @@ namespace Client
         {
             Lua luaState = new Lua();
 
+            // Changes encoding from ASCII (default) to UTF8
+            luaState.State.Encoding = Encoding.UTF8;
+
             AddLuaFunction(luaState, typeof(LuaPrint), "Print", "print");
+
+            // To access any.NET assembly to create objects, events etc inside Lua you need to ask NLua to use CLR as a Lua package
+            luaState.LoadCLRPackage();
+
+            luaState.DoString(@" import ('assembly_valheim') ");
 
             return luaState;
         }
