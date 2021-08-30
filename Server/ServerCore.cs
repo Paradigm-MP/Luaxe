@@ -3,10 +3,10 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using UnityEngine;
 
-namespace Server
+namespace Luaxe.Server
 {
 	[BepInPlugin(modGUID, modName, modVersion)]
-	public class Luaxe : BaseUnityPlugin
+	public class Core : BaseUnityPlugin
 	{
 		private const string modGUID = "Paradigm.Luaxe.Server";
 		private const string modName = "Luaxe Server";
@@ -17,15 +17,5 @@ namespace Server
 		{
 			harmony.PatchAll();
 		}
-
-		/*[HarmonyPatch(typeof(Player), nameof(Player.OnJump))]
-		class FixOnSwiming
-		{
-			public static void Prefix(Player __instance)
-			{
-				Player player = __instance;
-				player.m_jumpForce = 100f;
-			}
-		}*/
 	}
 }

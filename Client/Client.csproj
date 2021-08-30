@@ -76,7 +76,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
+    <Compile Include="..\Shared\Networking.cs">
+      <Link>Shared\Networking.cs</Link>
+    </Compile>
+    <Compile Include="ClientCore.cs" />
     <Compile Include="LuaFunctions\LuaPrint.cs" />
     <Compile Include="LuaStateBuilder.cs" />
     <Compile Include="LuaTest.cs" />

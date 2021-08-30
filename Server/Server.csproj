@@ -76,7 +76,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Server.cs" />
+    <Compile Include="..\Shared\Networking.cs">
+      <Link>Shared\Networking.cs</Link>
+    </Compile>
+    <Compile Include="Networking.cs" />
+    <Compile Include="ServerCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

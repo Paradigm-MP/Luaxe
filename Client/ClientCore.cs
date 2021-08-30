@@ -3,11 +3,11 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using UnityEngine;
 
-namespace Client
+namespace Luaxe.Client
 {
-	/*[BepInPlugin(modGUID, modName, modVersion)]
+	[BepInPlugin(modGUID, modName, modVersion)]
 	[BepInProcess("valheim.exe")]
-	public class Luaxe : BaseUnityPlugin
+	public class Core : BaseUnityPlugin
 	{
 		private const string modGUID = "Paradigm.Luaxe.Client";
 		private const string modName = "Luaxe Client";
@@ -17,6 +17,7 @@ namespace Client
 		void Awake()
 		{
 			harmony.PatchAll();
+			Luaxe.Shared.Networking.IsServer();
 		}
 
 		[HarmonyPatch(typeof(Player), nameof(Player.OnJump))]
@@ -28,5 +29,5 @@ namespace Client
 				player.m_jumpForce = 100f;
 			}
 		}
-	}*/
+	}
 }
