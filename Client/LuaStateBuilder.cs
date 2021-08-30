@@ -25,13 +25,21 @@ namespace Client
 
             luaState.DoString(@" import ('assembly_valheim') ");
 
-            return luaState;
+
+            return Sandbox(luaState);
         }
 
         static protected void AddLuaFunction(Lua luaState, Type classType, string methodName, string luaFunctionName)
         {
             MethodInfo methodInfo = classType.GetMethod(methodName);
             luaState.RegisterFunction(luaFunctionName, methodInfo);
+        }
+
+        static protected Lua Sandbox(Lua luaState)
+        {
+            luaState.DoString(@"import = function() end");
+            return luaState;
+            // TODO: check out http://lua-users.org/wiki/SandBoxes
         }
     }
 }
