@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Luaxe.Shared.Events
 {
@@ -19,61 +20,61 @@ namespace Luaxe.Shared.Events
     /// </summary>
     public class EventSystem
     {
-        static readonly Dictionary<Type, Action<GameEvent>> s_Events = new Dictionary<Type, Action<GameEvent>>();
-        static readonly Dictionary<Delegate, Action<GameEvent>> s_EventLookups = new Dictionary<Delegate, Action<GameEvent>>();
+        static readonly Dictionary<Type, List<Delegate>> s_Events = new Dictionary<Type, List<Delegate>>();
 
         /// <summary>
         /// Add a listener to a GameEvent.
         /// </summary>
         /// <typeparam name="T">Type of GameEvent to listen for</typeparam>
         /// <param name="evt"></param>
-        public static void AddListener<T>(Action<T> evt) where T : GameEvent
+        public static void AddListener<T>(Func<T, bool> evt) where T : GameEvent
         {
-            if (!s_EventLookups.ContainsKey(evt))
+            Type t = typeof(T);
+            if (!s_Events.ContainsKey(t))
             {
-                Action<GameEvent> newAction = (e) => evt((T)e);
-                s_EventLookups[evt] = newAction;
+                s_Events.Add(t, new List<Delegate>());
+            }
 
-                if (s_Events.TryGetValue(typeof(T), out Action<GameEvent> internalAction))
-                {
-                    s_Events[typeof(T)] = internalAction += newAction;
-                }
-                else
-                {
-                    s_Events[typeof(T)] = newAction;
-                }
+            if (s_Events.TryGetValue(t, out var funcsList))
+            {
+                funcsList.Add(evt);
             }
         }
 
-        public static void RemoveListener<T>(Action<T> evt) where T : GameEvent
+        public static void RemoveListener(Func<GameEvent, bool> evt)
         {
-            if (s_EventLookups.TryGetValue(evt, out var action))
+            Type t = evt.GetType();
+            if (!s_Events.ContainsKey(t))
             {
-                if (s_Events.TryGetValue(typeof(T), out var tempAction))
-                {
-                    tempAction -= action;
-                    if (tempAction == null)
-                        s_Events.Remove(typeof(T));
-                    else
-                        s_Events[typeof(T)] = tempAction;
-                }
+                return;
+            }
 
-                s_EventLookups.Remove(evt);
+            if (s_Events.TryGetValue(t, out var funcsList))
+            {
+                funcsList.Remove(evt);
             }
         }
 
-        public static void Broadcast(GameEvent evt)
+        public static bool Broadcast(GameEvent evt)
         {
-            if (s_Events.TryGetValue(evt.GetType(), out var action))
+            bool returnValue = true;
+            if (s_Events.TryGetValue(evt.GetType(), out var funcsList))
             {
-                action.Invoke(evt);
+                foreach (Delegate dg in funcsList)
+                {
+                    if(!(bool)dg.DynamicInvoke(evt))
+                    {
+                        returnValue = false;
+                    }
+                }
             }
+
+            return returnValue;
         }
 
         public static void Clear()
         {
-            s_Events.Clear();
-            s_EventLookups.Clear();
+
         }
     }
 }

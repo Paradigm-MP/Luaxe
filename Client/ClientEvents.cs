@@ -13,4 +13,25 @@ namespace Luaxe.Client.Events
         public PlayerDeathGameEvent(Player player) => this.player = player;
     }
 
+    public class PlayerJumpGameEvent : Luaxe.Shared.Events.GameEvent
+    {
+        public override string luaEventName => Constants.Events.PlayerJump;
+        public Player player;
+
+        public PlayerJumpGameEvent(Player player) => this.player = player;
+    }
+
+    public class CharacterDamagedGameEvent : Luaxe.Shared.Events.GameEvent
+    {
+        public override string luaEventName => Constants.Events.CharacterDamaged;
+        public Character character;
+        public HitData hit;
+
+        public CharacterDamagedGameEvent(HitData hit, Character character)
+        {
+            this.character = character;
+            this.hit = hit;
+        }
+    }
+
 }
