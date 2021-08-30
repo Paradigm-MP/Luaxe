@@ -82,6 +82,9 @@
     <Compile Include="..\Shared\Networking.cs">
       <Link>Shared\Networking.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\UnityObserver.cs">
+      <Link>Shared\UnityObserver.cs</Link>
+    </Compile>
     <Compile Include="ClientCore.cs" />
     <Compile Include="ClientEventPatches.cs" />
     <Compile Include="ClientEvents.cs" />

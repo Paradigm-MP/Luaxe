@@ -11,8 +11,20 @@ namespace Luaxe.Server
 		private readonly Harmony harmony = new Harmony(Constants.ModInfo.modGUID);
 		void Awake()
 		{
+			InitializeAll();
 			harmony.PatchAll();
+
+			Shared.UnityObserver.Awake?.Invoke();
+		}
+
+		void InitializeAll()
+		{
 			Networking.Initialize();
 		}
+		void Start()
+		{
+			Shared.UnityObserver.Start?.Invoke();
+		}
+
 	}
 }

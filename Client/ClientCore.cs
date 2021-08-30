@@ -12,13 +12,18 @@ namespace Luaxe.Client
 		private readonly Harmony harmony = new Harmony(Constants.ModInfo.modGUID);
 		void Awake()
 		{
-			// Or Shared.Events.EventSystem.AddListener<Luaxe.Client.Events.PlayerDeathGameEvent>(PlayerDeathEvent);
-			// Assuming you have a method in this class called PlayerDeathEvent
 			Shared.Events.EventSystem.AddListener<Events.PlayerDeathGameEvent>(OnPlayerDeathEvent);
 			Shared.Events.EventSystem.AddListener<Events.PlayerJumpGameEvent>(OnPlayerJumpEvent);
 			Shared.Events.EventSystem.AddListener<Events.CharacterDamagedGameEvent>(OnCharacterDamagedEvent);
 
 			harmony.PatchAll();
+
+			Shared.UnityObserver.Awake?.Invoke();
+		}
+
+		void Start()
+		{
+			Shared.UnityObserver.Start?.Invoke();
 		}
 
 		bool OnPlayerJumpEvent(Events.PlayerJumpGameEvent evt)

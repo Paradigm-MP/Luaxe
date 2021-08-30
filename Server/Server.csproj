@@ -82,13 +82,16 @@
     <Compile Include="..\Shared\Networking.cs">
       <Link>Shared\Networking.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\UnityObserver.cs">
+      <Link>Shared\UnityObserver.cs</Link>
+    </Compile>
     <Compile Include="Constants\EventsConstants.cs" />
     <Compile Include="Constants\ModInfoConstants.cs" />
     <Compile Include="Networking.cs" />
     <Compile Include="ServerCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerEventPatches.cs" />
-    <Compile Include="ServerEvents.cs" />
+    <Compile Include="Events\ServerEventPatches.cs" />
+    <Compile Include="Events\ServerEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
