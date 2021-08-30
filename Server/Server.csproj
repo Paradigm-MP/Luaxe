@@ -76,9 +76,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\EventSystem.cs">
+      <Link>Shared\EventSystem.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\Networking.cs">
       <Link>Shared\Networking.cs</Link>
     </Compile>
+    <Compile Include="Constants\EventsConstants.cs" />
     <Compile Include="Networking.cs" />
     <Compile Include="ServerCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

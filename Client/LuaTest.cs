@@ -3,7 +3,7 @@ using HarmonyLib;
 
 namespace Client
 {
-	[BepInPlugin(modGUID, modName, modVersion)]
+	/*[BepInPlugin(modGUID, modName, modVersion)]
 	[BepInProcess("valheim.exe")]
 	public class LuaTest : BaseUnityPlugin
 	{
@@ -29,5 +29,5 @@ namespace Client
 				player.m_jumpForce = 100f;
 			}
 		}
-	}
+	}*/
 }

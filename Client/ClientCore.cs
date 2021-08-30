@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Luaxe.Client
 {
-	[BepInPlugin(modGUID, modName, modVersion)]
+    [BepInPlugin(modGUID, modName, modVersion)]
 	[BepInProcess("valheim.exe")]
 	public class Core : BaseUnityPlugin
 	{
@@ -16,18 +16,14 @@ namespace Luaxe.Client
 		private readonly Harmony harmony = new Harmony(modGUID);
 		void Awake()
 		{
-			harmony.PatchAll();
-			Luaxe.Shared.Networking.IsServer();
-		}
-
-		[HarmonyPatch(typeof(Player), nameof(Player.OnJump))]
-		class FixOnSwiming
-		{
-			public static void Prefix(Player __instance)
+			// Or Shared.Events.EventSystem.AddListener<Luaxe.Client.Events.PlayerDeathGameEvent>(PlayerDeathEvent);
+			// Assuming you have a method in this class called PlayerDeathEvent
+			Shared.Events.EventSystem.AddListener(delegate (Luaxe.Client.Events.PlayerDeathGameEvent evt)
 			{
-				Player player = __instance;
-				player.m_jumpForce = 100f;
-			}
+				Debug.Log($"Player death event! Player died: {evt.player.name} Location: {evt.player.gameObject.transform.position}");
+			});
+
+			harmony.PatchAll();
 		}
 	}
 }
