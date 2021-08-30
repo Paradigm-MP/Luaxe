@@ -15,7 +15,11 @@ namespace Luaxe.Shared
         /// <returns></returns>
         public static bool IsServer()
         {
-            return ZNet.instance.IsServer() || ZNet.instance.IsDedicated() || SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null;
+            bool isServer = (ZNet.instance != null) ?
+                ZNet.instance.IsServer() || ZNet.instance.IsDedicated() :
+                false;
+
+            return isServer || SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null;
         }
     }
 }

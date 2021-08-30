@@ -86,6 +86,7 @@
     <Compile Include="ClientEventPatches.cs" />
     <Compile Include="ClientEvents.cs" />
     <Compile Include="Constants\EventsConstants.cs" />
+    <Compile Include="Constants\ModInfoConstants.cs" />
     <Compile Include="LuaFunctions\LuaPrint.cs" />
     <Compile Include="LuaStateBuilder.cs" />
     <Compile Include="LuaTest.cs" />

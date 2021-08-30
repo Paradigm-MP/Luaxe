@@ -6,19 +6,22 @@ using UnityEngine.Rendering;
 
 namespace Luaxe.Server
 {
-    class Networking
+    public static class Networking
     {
-        void Start()
+        public static void Initialize()
         {
             if (!Shared.Networking.IsServer())
             {
                 throw new System.Exception("Failed to initialize Server networking core. You are running the server mod on the client.");
             }
+
+            Shared.Events.EventSystem.AddListener<Events.NewConnectionGameEvent>(OnNewConnectionGameEvent);
         }
 
-        void Send()
+        static bool OnNewConnectionGameEvent(Events.NewConnectionGameEvent evt)
         {
-
+            Debug.Log($"New connection: {evt.peer.m_uid}");
+            return true;
         }
     }
 }

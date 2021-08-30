@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Luaxe.Shared.Events
 {
@@ -41,9 +40,13 @@ namespace Luaxe.Shared.Events
             }
         }
 
-        public static void RemoveListener(Func<GameEvent, bool> evt)
+        /// <summary>
+        /// Removes a listener from a GameEvent.
+        /// </summary>
+        /// <param name="evt">Listener to remove</param>
+        public static void RemoveListener<T>(Func<T, bool> evt) where T : GameEvent
         {
-            Type t = evt.GetType();
+            Type t = typeof(T);
             if (!s_Events.ContainsKey(t))
             {
                 return;
@@ -55,6 +58,11 @@ namespace Luaxe.Shared.Events
             }
         }
 
+        /// <summary>
+        /// Broadcast a GameEvent to all listeners.
+        /// </summary>
+        /// <param name="evt">Specific type of GameEvent to broadcast.</param>
+        /// <returns></returns>
         public static bool Broadcast(GameEvent evt)
         {
             bool returnValue = true;
@@ -70,11 +78,6 @@ namespace Luaxe.Shared.Events
             }
 
             return returnValue;
-        }
-
-        public static void Clear()
-        {
-
         }
     }
 }
