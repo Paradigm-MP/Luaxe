@@ -1,11 +1,14 @@
 # Luaxe
 
-Create wonderous gamemodes for Valheim with Lua. 
+Create wonderous gamemodes for Valheim with Lua. [Get started here.](https://luaxe.dev/)
 
 ## 🛑 Disclaimer 🛑
 This is a **highly WIP** project. Not intended for use..._yet_.
 
 ## Setting Up for Development
+
+These steps are only needed if you plan on developing the Luaxe mod. If you are writing Lua scripts to be used with the mod, you don't need to complete these steps, but instead read the [documentation](https://luaxe.dev/) to make sure you install Luaxe properly.
+
 
 1. Download [BepInEx for Valheim](https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/). Follow the instructions to install BepInEx to Valheim. Also make sure to install it to your server.
 2. Create a `Libs` folder (right next to this file).
