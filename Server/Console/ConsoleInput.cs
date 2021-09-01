@@ -19,7 +19,7 @@ namespace Luaxe.Server.Console
             worker.RunWorkerCompleted += (sender, e) =>
             {
                 // When the input thread finishes, that means the stop command has been sent
-                System.Console.WriteLine("Stopping server...");
+                Shared.Logging.log.LogInfo("Stopping server...");
                 Environment.Exit(0);
             };
             worker.RunWorkerAsync();

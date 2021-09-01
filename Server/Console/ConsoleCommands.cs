@@ -28,7 +28,7 @@ namespace Luaxe.Server.Console
             }
             else if (evt.command == "stop")
             {
-                System.Console.WriteLine("Stop command received, please wait...");
+                Shared.Logging.log.LogInfo("Stop command received, please wait...");
                 Shared.Events.EventSystem.Broadcast(new Events.ServerStopCommand());
             }
 

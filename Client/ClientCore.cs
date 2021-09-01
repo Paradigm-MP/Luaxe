@@ -12,13 +12,22 @@ namespace Luaxe.Client
 		private readonly Harmony harmony = new Harmony(Constants.ModInfo.modGUID);
 		void Awake()
 		{
-			Shared.Events.EventSystem.AddListener<Events.PlayerDeathGameEvent>(OnPlayerDeathEvent);
-			Shared.Events.EventSystem.AddListener<Events.PlayerJumpGameEvent>(OnPlayerJumpEvent);
-			Shared.Events.EventSystem.AddListener<Events.CharacterDamagedGameEvent>(OnCharacterDamagedEvent);
+			InitializeAll();
 
 			harmony.PatchAll();
 
 			Shared.UnityObserver.Awake?.Invoke();
+
+			Shared.Logging.log.LogInfo("Initialized!");
+		}
+
+		void InitializeAll()
+		{
+			Shared.Events.EventSystem.AddListener<Events.PlayerDeathGameEvent>(OnPlayerDeathEvent);
+			Shared.Events.EventSystem.AddListener<Events.PlayerJumpGameEvent>(OnPlayerJumpEvent);
+			Shared.Events.EventSystem.AddListener<Events.CharacterDamagedGameEvent>(OnCharacterDamagedEvent);
+
+			Shared.Logging.Initialize();
 		}
 
 		void Start()
@@ -28,19 +37,19 @@ namespace Luaxe.Client
 
 		bool OnPlayerJumpEvent(Events.PlayerJumpGameEvent evt)
 		{
-			Debug.Log($"Player jump event!");
+			Shared.Logging.log.LogInfo($"Player jump event!");
 			return false;
         }
 
 		bool OnPlayerDeathEvent(Events.PlayerDeathGameEvent evt)
 		{
-			Debug.Log($"Player death event! Player died: {evt.player.name} Location: {evt.player.gameObject.transform.position}");
+			Shared.Logging.log.LogInfo($"Player death event! Player died: {evt.player.name} Location: {evt.player.gameObject.transform.position}");
 			return true;
 		}
 
 		bool OnCharacterDamagedEvent(Events.CharacterDamagedGameEvent evt)
 		{
-			Debug.Log($"Character damaged! Char: {evt.character.m_name} damage: {evt.hit.m_damage.m_damage}");
+			Shared.Logging.log.LogInfo($"Character damaged! Char: {evt.character.m_name} damage: {evt.hit.m_damage.m_damage}");
 			// Return false to block all damage
 			return false;
 		}

@@ -25,7 +25,7 @@ namespace Luaxe.Server
 
         static bool OnNewConnectionGameEvent(Events.NewConnectionGameEvent evt)
         {
-            Debug.Log($"New connection: {evt.peer.m_playerName} UID: {evt.peer.m_uid}");
+            Shared.Logging.log.LogInfo($"New connection: {evt.peer.m_playerName} UID: {evt.peer.m_uid}");
             return true;
         }
     }

@@ -79,6 +79,9 @@
     <Compile Include="..\Shared\EventSystem.cs">
       <Link>Shared\EventSystem.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\Logging.cs">
+      <Link>Shared\Logging.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\Networking.cs">
       <Link>Shared\Networking.cs</Link>
     </Compile>

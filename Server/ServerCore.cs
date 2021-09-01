@@ -16,6 +16,8 @@ namespace Luaxe.Server
 			harmony.PatchAll();
 
 			Shared.UnityObserver.Awake?.Invoke();
+
+			Shared.Logging.log.LogInfo("Initialized!");
 		}
 
 		void InitializeAll()
@@ -23,6 +25,7 @@ namespace Luaxe.Server
 			Networking.Initialize();
 			Console.Input.Initialize();
 			Console.Commands.Initialize();
+			Shared.Logging.Initialize();
 		}
 
 		void Start()
