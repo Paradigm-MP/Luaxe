@@ -15,23 +15,16 @@ namespace Luaxe.Server
 			InitializeAll();
 			harmony.PatchAll();
 
-			ConsoleInput.Initialize();
-
-			Shared.Events.EventSystem.AddListener<Events.ConsoleCommand>(OnConsoleCommand);
-
 			Shared.UnityObserver.Awake?.Invoke();
 		}
-
-		bool OnConsoleCommand(Events.ConsoleCommand evt)
-        {
-			Debug.Log($"Command: {evt.command}");
-			return true;
-        }
 
 		void InitializeAll()
 		{
 			Networking.Initialize();
+			Console.Input.Initialize();
+			Console.Commands.Initialize();
 		}
+
 		void Start()
 		{
 			Shared.UnityObserver.Start?.Invoke();

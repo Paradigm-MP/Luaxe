@@ -2,11 +2,10 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
-using UnityEngine;
 
-namespace Luaxe.Server
+namespace Luaxe.Server.Console
 {
-    public static class ConsoleInput
+    public static class Input
     {
         public static void Initialize()
         {
@@ -22,7 +21,8 @@ namespace Luaxe.Server
                 string cmd = System.Console.ReadLine();
                 if (Shared.Events.EventSystem.Broadcast(new Events.ConsoleCommand(cmd)))
                 {
-                    // TODO: call the internal command api if the command matches, such as "reload"
+                    // Now fire the command for internal use
+                    Shared.Events.EventSystem.Broadcast(new Events.ConsoleCommand(cmd, true));
                 }
             }
         }
