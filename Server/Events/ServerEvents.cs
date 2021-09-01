@@ -21,4 +21,15 @@ namespace Luaxe.Server.Events
             this.znet = znet;
         }
     }
+
+    public class ConsoleCommand : Luaxe.Shared.Events.GameEvent
+    {
+        public override string luaEventName => Constants.Events.ConsoleCommand;
+        public string command;
+
+        public ConsoleCommand(string command)
+        {
+            this.command = command;
+        }
+    }
 }

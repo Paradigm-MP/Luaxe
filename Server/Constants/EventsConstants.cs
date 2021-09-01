@@ -12,5 +12,6 @@ namespace Luaxe.Server.Constants
     class Events
     {
         public static readonly string NewConnection = "NewConnection";
+        public static readonly string ConsoleCommand = "ConsoleCommand";
     }
 }
