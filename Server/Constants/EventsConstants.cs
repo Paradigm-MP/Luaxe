@@ -13,5 +13,6 @@ namespace Luaxe.Server.Constants
     {
         public static readonly string NewConnection = "NewConnection";
         public static readonly string ConsoleCommand = "ConsoleCommand";
+        public static readonly string ServerStopCommand = "ServerStopCommand";
     }
 }

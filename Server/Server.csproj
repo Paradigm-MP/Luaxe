@@ -86,7 +86,7 @@
       <Link>Shared\UnityObserver.cs</Link>
     </Compile>
     <Compile Include="Console\ConsoleCommands.cs" />
-    <Compile Include="Console\Input.cs" />
+    <Compile Include="Console\ConsoleInput.cs" />
     <Compile Include="Constants\EventsConstants.cs" />
     <Compile Include="Constants\ModInfoConstants.cs" />
     <Compile Include="Networking.cs" />

@@ -39,4 +39,11 @@ namespace Luaxe.Server.Events
             this.isInternal = isInternal;
         }
     }
+
+    public class ServerStopCommand : Luaxe.Shared.Events.GameEvent
+    {
+        public override string luaEventName => Constants.Events.ServerStopCommand;
+
+        public ServerStopCommand() { }
+    }
 }

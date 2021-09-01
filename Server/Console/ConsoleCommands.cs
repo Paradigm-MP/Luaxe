@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Luaxe.Server.Console
@@ -24,6 +25,11 @@ namespace Luaxe.Server.Console
             else if (evt.command == "clear")
             {
                 ClearCommand();
+            }
+            else if (evt.command == "stop")
+            {
+                System.Console.WriteLine("Stop command received, please wait...");
+                Shared.Events.EventSystem.Broadcast(new Events.ServerStopCommand());
             }
 
             return true;
