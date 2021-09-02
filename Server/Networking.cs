@@ -26,7 +26,7 @@ namespace Luaxe.Server
         static bool OnNewConnectionGameEvent(Events.NewConnectionGameEvent evt)
         {
             string peerSteamID = ((ZSteamSocket)evt.peer.m_socket).GetPeerID().m_SteamID.ToString();
-            Shared.Logging.log.LogInfo($"New connection: {evt.peer.m_playerName} UID: {evt.peer.m_uid}");
+            Shared.Logging.log.LogInfo($"New connection: {evt.peer.m_playerName} SteamID: {peerSteamID}");
             return true;
         }
     }
