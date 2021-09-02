@@ -21,6 +21,7 @@ BepInEx.dll
 ```
 assembly_valheim.dll
 assembly_utils.dll
+assembly_steamworks.dll
 ```
 5. Navigate to your Valheim game directory. Copy the following files from the `unstripped_corlib` folder to the `Libs` folder:
 ```
