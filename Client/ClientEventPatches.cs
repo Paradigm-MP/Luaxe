@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Luaxe.Client.Patches.Events
 {
@@ -31,6 +32,15 @@ namespace Luaxe.Client.Patches.Events
         public static bool Prefix(HitData hit, Character __instance)
         {
             return Shared.Events.EventSystem.Broadcast(new Luaxe.Client.Events.CharacterDamagedGameEvent(hit, __instance));
+        }
+    }
+
+    [HarmonyPatch(typeof(Chat), "InputText")]
+    public static class ChatHandler
+    {
+        private static bool Prefix(ref Chat __instance)
+        {
+            return Shared.Events.EventSystem.Broadcast(new Luaxe.Client.Events.ChatMessage(__instance.m_input.text));
         }
     }
 }

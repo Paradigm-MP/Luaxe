@@ -30,6 +30,7 @@ UnityEngine.InputModule.dll
 UnityEngine.PhysicsModule.dll
 UnityEngine.CoreModule.dll
 UnityEngine.dll
+UnityEngine.UI.dll
 ```
 6. Create an environment variable called `VALHEIM_BEPINEX_PLUGINS_CLIENT` and set it to the path of your BepInEx plugins folder in your game, **including the end \\**. Example:
 ```

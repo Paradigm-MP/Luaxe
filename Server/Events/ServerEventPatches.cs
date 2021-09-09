@@ -12,7 +12,8 @@ namespace Luaxe.Server.Patches.Events
     {
         public static void Postfix(ZRpc rpc, ZPackage pkg, ZNet __instance)
         {
-            ZNetPeer peer = Traverse.Create(__instance).Method("GetPeer", rpc).GetValue<ZNetPeer>();
+            ZNetPeer peer = __instance.GetPeer(rpc);
+            //ZNetPeer peer = Traverse.Create(__instance).Method("GetPeer", rpc).GetValue<ZNetPeer>();
             Shared.Events.EventSystem.Broadcast(new Luaxe.Server.Events.NewConnectionGameEvent(rpc, pkg, peer, __instance));
         }
     }

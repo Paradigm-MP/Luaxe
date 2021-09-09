@@ -77,6 +77,9 @@
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>..\Libs\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\Libs\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Shared\EventSystem.cs">
@@ -99,6 +102,7 @@
     <Compile Include="LuaFunctions\LuaPrint.cs" />
     <Compile Include="LuaStateBuilder.cs" />
     <Compile Include="LuaTest.cs" />
+    <Compile Include="Networking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

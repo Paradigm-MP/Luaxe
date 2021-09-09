@@ -34,4 +34,15 @@ namespace Luaxe.Client.Events
         }
     }
 
+    public class ChatMessage : Luaxe.Shared.Events.GameEvent
+    {
+        public override string luaEventName => Constants.Events.ChatMessage;
+        public string text;
+
+        public ChatMessage(string text)
+        {
+            this.text = text;
+        }
+    }
+
 }

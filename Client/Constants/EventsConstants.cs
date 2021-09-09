@@ -8,5 +8,6 @@
         public static readonly string PlayerDeath = "PlayerDeath";
         public static readonly string PlayerJump = "PlayerJump";
         public static readonly string CharacterDamaged = "CharacterDamaged";
+        public static readonly string ChatMessage = "ChatMessage";
     }
 }
