@@ -13,26 +13,28 @@ namespace Luaxe.Client
 		void Awake()
 		{
 			InitializeAll();
-
 			harmony.PatchAll();
 
-			Shared.UnityObserver.Awake?.Invoke();
-
-			Shared.Logging.log.LogInfo("Initialized!");
+			Shared.Logging.log.LogMessage("Successfully Initialized!");
 		}
 
 		void InitializeAll()
 		{
+			Shared.Logging.Initialize();
+			Shared.Logging.log.LogMessage("Initializing client...");
+
+			Networking.Initialize();
+
 			Shared.Events.EventSystem.AddListener<Events.PlayerDeathGameEvent>(OnPlayerDeathEvent);
 			Shared.Events.EventSystem.AddListener<Events.PlayerJumpGameEvent>(OnPlayerJumpEvent);
 			Shared.Events.EventSystem.AddListener<Events.CharacterDamagedGameEvent>(OnCharacterDamagedEvent);
-
-			Shared.Logging.Initialize();
+			Shared.Events.EventSystem.AddListener<Events.LocalPlayerChat>(OnLocalPlayerChat);
 		}
 
-		void Start()
+		bool OnLocalPlayerChat(Events.LocalPlayerChat evt)
 		{
-			Shared.UnityObserver.Start?.Invoke();
+			Shared.Logging.log.LogInfo($"LocalPlayerChat: {evt.text}");
+			return true;
 		}
 
 		bool OnPlayerJumpEvent(Events.PlayerJumpGameEvent evt)

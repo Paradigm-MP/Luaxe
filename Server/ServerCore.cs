@@ -15,22 +15,17 @@ namespace Luaxe.Server
 			InitializeAll();
 			harmony.PatchAll();
 
-			Shared.UnityObserver.Awake?.Invoke();
-
-			Shared.Logging.log.LogInfo("Initialized!");
+			Shared.Logging.log.LogMessage("Successfully Initialized!");
 		}
 
 		void InitializeAll()
 		{
+			Shared.Logging.Initialize();
+			Shared.Logging.log.LogMessage("Initializing server...");
+
 			Networking.Initialize();
 			Console.Input.Initialize();
 			Console.Commands.Initialize();
-			Shared.Logging.Initialize();
-		}
-
-		void Start()
-		{
-			Shared.UnityObserver.Start?.Invoke();
 		}
 
 	}

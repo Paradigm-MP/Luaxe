@@ -10,18 +10,41 @@ namespace Luaxe.Server
     {
         public static void Initialize()
         {
-            if (!Shared.Networking.IsServer())
-            {
-                Shared.Logging.log.LogError("Failed to initialize Server networking core. You are running the server mod on the client.");
-                return;
-            }
-
             Shared.UnityObserver.Awake += Awake;
+            Shared.UnityObserver.Start += Start;
+            Shared.Logging.log.LogMessage("Networking intialized.");
         }
 
         static void Awake()
         {
             Shared.Events.EventSystem.AddListener<Events.NewConnectionGameEvent>(OnNewConnectionGameEvent);
+            Shared.Events.EventSystem.AddListener<Events.ConsoleCommand>(OnConsoleCommand);
+            Shared.Logging.log.LogMessage("Networking awake.");
+        }
+
+        static void Start()
+        {
+            Shared.Logging.log.LogMessage("Networking start.");
+            Shared.Logging.log.LogMessage($"Registering RPC callback for LuaxeNetworkEvent");
+            ZRoutedRpc.instance.Register<ZPackage>("LuaxeNetworkEvent", RPC_LuaxeNetworkEvent);
+        }
+
+        static bool OnConsoleCommand(Events.ConsoleCommand evt)
+        {
+            if (evt.isInternal) { return true; }
+
+            if (evt.command == "testnet")
+            {
+                Broadcast("testevent", new object[]
+                {
+                    53,
+                    "hello"
+                });
+                Shared.Logging.log.LogMessage($"Broadcasted test network event to all clients.");
+                return false;
+            }
+
+            return true;
         }
 
         static bool OnNewConnectionGameEvent(Events.NewConnectionGameEvent evt)
@@ -33,7 +56,6 @@ namespace Luaxe.Server
 
         static void Subscribe(string eventName)
         {
-            ZRoutedRpc.instance.Register<ZPackage>("LuaxeNetworkEvent", RPC_LuaxeNetworkEvent);
         }
 
         private static void RPC_LuaxeNetworkEvent(long sender, ZPackage package)
@@ -41,7 +63,8 @@ namespace Luaxe.Server
             ZNetPeer peer = ZNet.instance.GetPeer(sender);
             if (peer != null)
             {
-                Shared.Logging.log.LogInfo($"Got RPC_LuaxeNetworkEvent");
+                Shared.Logging.log.LogInfo($"Got Server RPC_LuaxeNetworkEvent");
+                Send(peer, "testnet2");
             }
         }
 
@@ -53,7 +76,7 @@ namespace Luaxe.Server
         /// <param name="args"></param>
         static void Send(ZNetPeer peer, string eventName, params object[] args)
         {
-            peer.m_rpc.Invoke(eventName, args);
+            peer.m_rpc.Invoke("LuaxeNetworkEvent", args);
         }
 
         /// <summary>
@@ -63,7 +86,7 @@ namespace Luaxe.Server
         /// <param name="args"></param>
         static void Broadcast(string eventName, params object[] args)
         {
-            ZRoutedRpc.instance.InvokeRoutedRPC(eventName, args);
+            ZRoutedRpc.instance.InvokeRoutedRPC("LuaxeNetworkEvent", args);
         }
     }
 }

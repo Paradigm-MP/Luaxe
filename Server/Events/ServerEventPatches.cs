@@ -12,9 +12,26 @@ namespace Luaxe.Server.Patches.Events
     {
         public static void Postfix(ZRpc rpc, ZPackage pkg, ZNet __instance)
         {
-            ZNetPeer peer = __instance.GetPeer(rpc);
-            //ZNetPeer peer = Traverse.Create(__instance).Method("GetPeer", rpc).GetValue<ZNetPeer>();
+            ZNetPeer peer = Traverse.Create(__instance).Method("GetPeer", rpc).GetValue<ZNetPeer>();
             Shared.Events.EventSystem.Broadcast(new Luaxe.Server.Events.NewConnectionGameEvent(rpc, pkg, peer, __instance));
+        }
+    }
+
+    [HarmonyPatch(typeof(Game), "Start")]
+    public static class GameStartPatch
+    {
+        private static void Prefix(ref Game __instance)
+        {
+            Shared.UnityObserver.Start?.Invoke();
+        }
+    }
+
+    [HarmonyPatch(typeof(Game), "Awake")]
+    public static class GameAwakePatch
+    {
+        private static void Prefix(ref Game __instance)
+        {
+            Shared.UnityObserver.Awake?.Invoke();
         }
     }
 }
