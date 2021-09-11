@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -12,35 +13,32 @@ namespace Luaxe.Server
         {
             Shared.UnityObserver.Awake += Awake;
             Shared.UnityObserver.Start += Start;
-            Shared.Logging.log.LogMessage("Networking intialized.");
+            Shared.Logging.log.LogInfo("Networking intialized.");
         }
 
         static void Awake()
         {
             Shared.Events.EventSystem.AddListener<Events.NewConnectionGameEvent>(OnNewConnectionGameEvent);
             Shared.Events.EventSystem.AddListener<Events.ConsoleCommand>(OnConsoleCommand);
-            Shared.Logging.log.LogMessage("Networking awake.");
+            Shared.Logging.log.LogInfo("Networking awake.");
         }
 
         static void Start()
         {
-            Shared.Logging.log.LogMessage("Networking start.");
-            Shared.Logging.log.LogMessage($"Registering RPC callback for LuaxeNetworkEvent");
+            Shared.Logging.log.LogInfo("Networking start.");
+            Shared.Logging.log.LogInfo($"Registering RPC callback for LuaxeNetworkEvent");
             ZRoutedRpc.instance.Register<ZPackage>("LuaxeNetworkEvent", RPC_LuaxeNetworkEvent);
         }
 
         static bool OnConsoleCommand(Events.ConsoleCommand evt)
         {
-            if (evt.isInternal) { return true; }
+            if (!evt.isInternal) { return true; }
 
             if (evt.command == "testnet")
             {
-                Broadcast("testevent", new object[]
-                {
-                    53,
-                    "hello"
-                });
-                Shared.Logging.log.LogMessage($"Broadcasted test network event to all clients.");
+                Shared.Logging.log.LogInfo($"Broadcasting test network event to all clients.");
+                Networking.Broadcast("testevent");
+                Shared.Logging.log.LogInfo($"Broadcasted test network event to all clients.");
                 return false;
             }
 
@@ -86,7 +84,8 @@ namespace Luaxe.Server
         /// <param name="args"></param>
         static void Broadcast(string eventName, params object[] args)
         {
-            ZRoutedRpc.instance.InvokeRoutedRPC("LuaxeNetworkEvent", args);
+            ZPackage pkg = new ZPackage();
+            ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "LuaxeNetworkEvent", new object[] { pkg });
         }
     }
 }

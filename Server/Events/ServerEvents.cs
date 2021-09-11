@@ -26,7 +26,7 @@ namespace Luaxe.Server.Events
     {
         public override string luaEventName => Constants.Events.ConsoleCommand;
         public string command;
-        public bool isInternal;
+        public bool isInternal = false;
 
         public ConsoleCommand(string command)
         {

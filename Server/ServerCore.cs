@@ -15,13 +15,13 @@ namespace Luaxe.Server
 			InitializeAll();
 			harmony.PatchAll();
 
-			Shared.Logging.log.LogMessage("Successfully Initialized!");
+			Shared.Logging.log.LogInfo("Successfully Initialized!");
 		}
 
 		void InitializeAll()
 		{
 			Shared.Logging.Initialize();
-			Shared.Logging.log.LogMessage("Initializing server...");
+			Shared.Logging.log.LogInfo("Initializing server...");
 
 			Networking.Initialize();
 			Console.Input.Initialize();

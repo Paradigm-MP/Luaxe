@@ -10,10 +10,10 @@ namespace Luaxe.Client
     {
         public static void Initialize()
         {
-            Shared.Logging.log.LogMessage($"Networking intiialize");
+            Shared.Logging.log.LogInfo($"Networking intiialize");
             Shared.UnityObserver.Awake += Awake;
             Shared.UnityObserver.Start += Start;
-            Shared.Logging.log.LogMessage($"Networking intiialized");
+            Shared.Logging.log.LogInfo($"Networking intiialized");
         }
         static void Awake()
         {
@@ -22,16 +22,18 @@ namespace Luaxe.Client
 
         static void Start()
         {
-            Shared.Logging.log.LogMessage($"Registering RPC callback for LuaxeNetworkEvent");
+            Shared.Logging.log.LogInfo($"Registering RPC callback for LuaxeNetworkEvent");
             ZRoutedRpc.instance.Register<ZPackage>("LuaxeNetworkEvent", RPC_LuaxeNetworkEvent);
+            Shared.Logging.log.LogInfo($"Registered RPC callback for LuaxeNetworkEvent");
         }
 
         static bool OnLocalPlayerChat(Events.LocalPlayerChat evt)
         {
             if (evt.text == "/testnet")
             {
-                Chat.instance.SendText(Talker.Type.Normal, "Sent test net event to server.");
+                Shared.Logging.log.LogMessage("Sending to server...");
                 Send("testnet");
+                Shared.Logging.log.LogMessage("Sent to server!");
                 return false;
             }
 
@@ -43,9 +45,13 @@ namespace Luaxe.Client
 
         }
 
+        /// <summary>
+        /// Called when a network event is received from the server.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="package"></param>
         private static void RPC_LuaxeNetworkEvent(long sender, ZPackage package)
         {
-            Shared.Logging.log.LogInfo($"Got Client RPC_LuaxeNetworkEvent. Package: {package.ToString()}");
             ZNetPeer peer = ZNet.instance.GetPeer(sender);
             if (peer != null)
             {
@@ -60,8 +66,8 @@ namespace Luaxe.Client
         /// <param name="args"></param>
         static void Send(string eventName, params object[] args)
         {
-            ZRoutedRpc.instance.InvokeRoutedRPC(0L, "LuaxeNetworkEvent", args);
+            ZPackage pkg = new ZPackage();
+            ZRoutedRpc.instance.InvokeRoutedRPC(0L, "LuaxeNetworkEvent", new object[] { pkg });
         }
-
     }
 }

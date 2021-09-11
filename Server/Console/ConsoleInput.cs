@@ -19,12 +19,21 @@ namespace Luaxe.Server.Console
             worker.RunWorkerCompleted += (sender, e) =>
             {
                 // When the input thread finishes, that means the stop command has been sent
+                if (shouldContinue)
+                {
+                    Shared.Logging.log.LogError("Input worker completed without ServerStopCommand being issued.\n" + 
+                                                "Something has probably gone terribly wrong and you should check recent changes.\n\n" + 
+                                                "Restarting Input worker thread...");
+                    worker.RunWorkerAsync();
+                    return;
+                }
+
                 Shared.Logging.log.LogInfo("Stopping server...");
                 Environment.Exit(0);
             };
             worker.RunWorkerAsync();
 
-            Shared.Events.EventSystem.AddListener<Events.ServerStopCommand>(delegate (Events.ServerStopCommand evt)
+            Shared.Events.EventSystem.AddListener(delegate (Events.ServerStopCommand evt)
             {
                 shouldContinue = false;
                 return true;
@@ -33,6 +42,7 @@ namespace Luaxe.Server.Console
 
         private static void InputThread()
         {
+            Shared.Logging.log.LogInfo("Console Input worker thread started.");
             while (shouldContinue)
             {
                 string cmd = System.Console.ReadLine();
