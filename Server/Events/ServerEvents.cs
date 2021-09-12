@@ -51,10 +51,12 @@ namespace Luaxe.Server.Events
     {
         public override string luaEventName => Constants.Events.NetworkEvent;
         public Shared.Networking.NetworkEventData ned;
+        public ZNetPeer peer;
 
-        public NetworkEvent(Shared.Networking.NetworkEventData ned)
+        public NetworkEvent(Shared.Networking.NetworkEventData ned, ZNetPeer peer)
         {
             this.ned = ned;
+            this.peer = peer;
         }
     }
 }

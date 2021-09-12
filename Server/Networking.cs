@@ -65,7 +65,7 @@ namespace Luaxe.Server
             {
                 Shared.Logging.log.LogInfo($"Got Server RPC_LuaxeNetworkEvent");
                 Shared.Networking.NetworkEventData ned = Shared.Networking.DeserializePackageToNetworkEventData(package);
-                Shared.Events.EventSystem.Broadcast(new Events.NetworkEvent(ned));
+                Shared.Events.EventSystem.Broadcast(new Events.NetworkEvent(ned, peer));
                 ned.LogMetadata();
                 ned.LogArgs();
 
