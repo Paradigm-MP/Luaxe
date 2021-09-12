@@ -45,4 +45,14 @@ namespace Luaxe.Client.Events
         }
     }
 
+    public class NetworkEvent : Luaxe.Shared.Events.GameEvent
+    {
+        public override string luaEventName => Constants.Events.NetworkEvent;
+        public Shared.Networking.NetworkEventData ned;
+
+        public NetworkEvent(Shared.Networking.NetworkEventData ned)
+        {
+            this.ned = ned;
+        }
+    }
 }

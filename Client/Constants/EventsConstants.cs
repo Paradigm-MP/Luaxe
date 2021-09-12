@@ -9,5 +9,6 @@
         public static readonly string PlayerJump = "PlayerJump";
         public static readonly string CharacterDamaged = "CharacterDamaged";
         public static readonly string LocalPlayerChat = "LocalPlayerChat";
+        public static readonly string NetworkEvent = "NetworkEvent";
     }
 }

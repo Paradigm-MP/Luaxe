@@ -46,11 +46,6 @@ namespace Luaxe.Client
             return true;
         }
 
-        static void Subscribe(string eventName)
-        {
-
-        }
-
         /// <summary>
         /// Called when a network event is received from the server.
         /// </summary>
@@ -63,6 +58,7 @@ namespace Luaxe.Client
             {
                 Shared.Logging.log.LogInfo($"Got Client RPC_LuaxeNetworkEvent.");
                 Shared.Networking.NetworkEventData ned = Shared.Networking.DeserializePackageToNetworkEventData(package);
+                Shared.Events.EventSystem.Broadcast(new Events.NetworkEvent(ned));
 
                 ned.LogMetadata();
                 ned.LogArgs();

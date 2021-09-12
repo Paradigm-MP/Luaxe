@@ -58,10 +58,6 @@ namespace Luaxe.Server
             return true;
         }
 
-        static void Subscribe(string eventName)
-        {
-        }
-
         private static void RPC_LuaxeNetworkEvent(long sender, ZPackage package)
         {
             ZNetPeer peer = ZNet.instance.GetPeer(sender);
@@ -69,6 +65,7 @@ namespace Luaxe.Server
             {
                 Shared.Logging.log.LogInfo($"Got Server RPC_LuaxeNetworkEvent");
                 Shared.Networking.NetworkEventData ned = Shared.Networking.DeserializePackageToNetworkEventData(package);
+                Shared.Events.EventSystem.Broadcast(new Events.NetworkEvent(ned));
                 ned.LogMetadata();
                 ned.LogArgs();
 

@@ -95,8 +95,8 @@
       <Link>Shared\UnityObserver.cs</Link>
     </Compile>
     <Compile Include="ClientCore.cs" />
-    <Compile Include="ClientEventPatches.cs" />
-    <Compile Include="ClientEvents.cs" />
+    <Compile Include="Events\ClientEventPatches.cs" />
+    <Compile Include="Events\ClientEvents.cs" />
     <Compile Include="Constants\EventsConstants.cs" />
     <Compile Include="Constants\ModInfoConstants.cs" />
     <Compile Include="LuaFunctions\LuaPrint.cs" />
