@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -37,7 +38,12 @@ namespace Luaxe.Server
             if (evt.command == "testnet")
             {
                 Shared.Logging.log.LogInfo($"Broadcasting test network event to all clients.");
-                Networking.Broadcast("testevent");
+                Networking.Broadcast("testevent", new Dictionary<string, object>()
+                {
+                    {"testkey1", "testvalue1" },
+                    {"testkey2", 55.3 },
+                    {"testkey3", new Vector3(4, 2.1f, -33.22f) }
+                });
                 Shared.Logging.log.LogInfo($"Broadcasted test network event to all clients.");
                 return false;
             }
@@ -62,8 +68,17 @@ namespace Luaxe.Server
             if (peer != null)
             {
                 Shared.Logging.log.LogInfo($"Got Server RPC_LuaxeNetworkEvent");
-                Send(peer, "testnet2");
+                Shared.Networking.NetworkEventData ned = Shared.Networking.DeserializePackageToNetworkEventData(package);
+                ned.LogMetadata();
+                ned.LogArgs();
+
+                Shared.Logging.log.LogInfo($"Sending response...");
+                Send(peer, "testresponsefromserver");
             }
+        }
+        static void Send(ZNetPeer peer, string eventName)
+        {
+            Send(peer, eventName, new Dictionary<string, object>());
         }
 
         /// <summary>
@@ -72,9 +87,17 @@ namespace Luaxe.Server
         /// <param name="peer"></param>
         /// <param name="eventName"></param>
         /// <param name="args"></param>
-        static void Send(ZNetPeer peer, string eventName, params object[] args)
+        static void Send(ZNetPeer peer, string eventName, Dictionary<string, object> args)
         {
-            peer.m_rpc.Invoke("LuaxeNetworkEvent", args);
+            ZPackage pkg = new ZPackage();
+            pkg.Write(eventName); // Write event name
+            Shared.Networking.SerializeDictionary(ref pkg, args);
+            ZRoutedRpc.instance.InvokeRoutedRPC(peer.m_uid, "LuaxeNetworkEvent", new object[] { pkg });
+        }
+
+        static void Broadcast(string eventName)
+        {
+            Broadcast(eventName, new Dictionary<string, object>());
         }
 
         /// <summary>
@@ -82,9 +105,11 @@ namespace Luaxe.Server
         /// </summary>
         /// <param name="eventName"></param>
         /// <param name="args"></param>
-        static void Broadcast(string eventName, params object[] args)
+        static void Broadcast(string eventName, Dictionary<string, object> args)
         {
             ZPackage pkg = new ZPackage();
+            pkg.Write(eventName); // Write event name
+            Shared.Networking.SerializeDictionary(ref pkg, args);
             ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "LuaxeNetworkEvent", new object[] { pkg });
         }
     }

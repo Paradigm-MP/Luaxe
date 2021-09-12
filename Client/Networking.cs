@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,11 @@ namespace Luaxe.Client
             Shared.Logging.log.LogInfo($"Registering RPC callback for LuaxeNetworkEvent");
             ZRoutedRpc.instance.Register<ZPackage>("LuaxeNetworkEvent", RPC_LuaxeNetworkEvent);
             Shared.Logging.log.LogInfo($"Registered RPC callback for LuaxeNetworkEvent");
+        }
+
+        static long GetServerPeerID()
+        {
+            return Traverse.Create(ZRoutedRpc.instance).Method("GetServerPeerID").GetValue<long>();
         }
 
         static bool OnLocalPlayerChat(Events.LocalPlayerChat evt)
@@ -55,8 +61,17 @@ namespace Luaxe.Client
             ZNetPeer peer = ZNet.instance.GetPeer(sender);
             if (peer != null)
             {
-                Shared.Logging.log.LogInfo($"Got Client RPC_LuaxeNetworkEvent. Package: {package.ToString()}");
+                Shared.Logging.log.LogInfo($"Got Client RPC_LuaxeNetworkEvent.");
+                Shared.Networking.NetworkEventData ned = Shared.Networking.DeserializePackageToNetworkEventData(package);
+
+                ned.LogMetadata();
+                ned.LogArgs();
             }
+        }
+
+        static void Send(string eventName)
+        {
+            Send(eventName, new Dictionary<string, object>());
         }
 
         /// <summary>
@@ -64,10 +79,12 @@ namespace Luaxe.Client
         /// </summary>
         /// <param name="eventName"></param>
         /// <param name="args"></param>
-        static void Send(string eventName, params object[] args)
+        static void Send(string eventName, Dictionary<string, object> args)
         {
             ZPackage pkg = new ZPackage();
-            ZRoutedRpc.instance.InvokeRoutedRPC(0L, "LuaxeNetworkEvent", new object[] { pkg });
+            pkg.Write(eventName); // Write event name
+            Shared.Networking.SerializeDictionary(ref pkg, args);
+            ZRoutedRpc.instance.InvokeRoutedRPC(GetServerPeerID(), "LuaxeNetworkEvent", new object[] { pkg });
         }
     }
 }
